@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E Commerce</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <nav class="mavbar navbar-expand-sm navbar-fixed-top">
+      <ul class="nav navbar-nav">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/admin-login/" class="nav-link">Admin Login</a></li>
+      </ul>
+      <ul class="nav justify-content-end">
+        <li>
+          <a href="/cart/" class="nav-link"
+            >Cart:<b>( {{cart_size}} ) Items</b></a
+          >
+        </li>
+        <li><a href="/cart/checkout" class="nav-link">Checkout</a></li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <div class="page-header" align="center">
+      <h2>StoreName</h2>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        {% for product in store_items %}
+        <div class="col-md-4 jumbotron" style="text-align: center;">
+          <b>{{product.name}}</b>
+          <br />
+          <small>{{product.description}}</small>
+          <br />
+          <img
+            src="{{product.imglink}}"
+            alt=""
+            style="max-width: 200px; height: auto;"
+          />
+          <br />
+          <span class="text text-primary">{{product.price}}</span>
+          <br /><br />
+
+          <form action="" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Add to Cart!" class="btn btn-info" />
+            <input type="hidden" name="obj_id" value="{{product.id}}" />
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

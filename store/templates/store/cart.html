@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E Commerce</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <nav class="mavbar navbar-expand-sm navbar-fixed-top">
+      <ul class="nav navbar-nav">
+        <li><a href="" class="nav-link">Home</a></li>
+        <li><a href="/admin-login/" class="nav-link">Admin Login</a></li>
+      </ul>
+      <ul class="nav justify-content-end">
+        <li>
+          <a href="" class="nav-link">Cart:<b>( {{cart_size}} ) Items</b></a>
+        </li>
+        <li><a href="/cart/checkout" class="nav-link">Checkout</a></li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <div class="page-header" align="center">
+      <h2>StoreName</h2>
+    </div>
+
+    <style type="text/css">
+      .centerdv {
+        width: 45%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+      .imgscale {
+        max-width: 64px;
+        max-height: 64px;
+      }
+    </style>
+    <div class="container centerdv">
+      <div>
+        <h3>
+          Total Price: <br />
+          <span class="text text-success">{{total_price}}</span>
+        </h3>
+        <br />
+        {% for item in cart_items %}
+        <div class="media">
+          <a href="" class="pull-left">
+            <img src="{{item.imglink}}" class="media-object imgscale" alt="" />
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading">{{item.name}}</h4>
+            {{item.description}}
+            <span class="badge pull-right">{{item.price}}</span>
+          </div>
+          <form action="remove/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="obj_id" value="{{item.id}}" />
+            <input
+              type="submit"
+              value="Remove"
+              class="btn btn-danger pull-right"
+            />
+          </form>
+        </div>
+        {% endfor %}
+        <button
+          class="btn btn-success btn-lg"
+          onclick="window.location='checkout';"
+        >
+          Checkout
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
